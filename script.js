@@ -54,10 +54,10 @@ const createTaskElement = (key, task) => {
   const p = document.createElement('p');
   p.innerHTML = task;
   item.append(p);
-  const trash = document.createElement('button');
+  const trash = document.createElement('a');
   trash.classList.add('delete-task');
   trash.setAttribute('onclick', 'deleteItem(this.parentElement)');
-  trash.innerHTML = '🗑️';
+  trash.innerHTML = '❌';
   item.append(trash);
   FRAGMENT.appendChild(item);
 };
@@ -72,13 +72,13 @@ const appendTaskElement = (key, task) => {
   const p = document.createElement('p');
   p.innerHTML = task;
   item.append(p);
-  const trash = document.createElement('button');
+  const trash = document.createElement('a');
   trash.classList.add('delete-task');
   trash.setAttribute('onclick', 'deleteItem(this.parentElement)');
-  trash.innerHTML = '🗑️';
+  trash.innerHTML = '❌';
   item.append(trash);
   TASKS.appendChild(item);
-}
+};
 
 readTasks();
 
@@ -94,12 +94,14 @@ SUBMTI.addEventListener('click', (e) => {
   e.preventDefault();
   addTask(INPUT.value);
   appendTaskElement(TASK_LIST.length, INPUT.value);
+  INPUT.value = '';
+  SUBMTI.setAttribute('disabled', true);
 });
 
 CLEAR.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.clear();
-  KEYS.splice(0, KEYS.length)
-  TASK_LIST.splice(0, TASK_LIST.length)
-  TASKS.innerHTML = ''
+  KEYS.splice(0, KEYS.length);
+  TASK_LIST.splice(0, TASK_LIST.length);
+  TASKS.innerHTML = '';
 });
